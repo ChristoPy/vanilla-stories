@@ -9,7 +9,20 @@
 </head>
 
 <body>
-  <div id="app"></div>
+  <div id="app">
+    <div class="avatars" id="avatars"></div>
+    <div class="stories" id="stories">
+      <div class="header">
+        <div class="user-info">
+          <img class="avatar-small" id="avatarSmall">
+          <span class="username" id="userName"></span>
+          <button class="close" id="buttonClose">X</button>
+        </div>
+        <div class="indicator" id="indicator"></div>
+      </div>
+      <div class="content" id="content"></div>
+    </div>
+  </div>
   <script type="module" src="/main.js"></script>
 </body>
 

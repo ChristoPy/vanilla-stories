@@ -1,0 +1,154 @@
+*, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+.avatars {
+  padding: .5em 1em;
+  overflow-x: auto;
+  display: flex;
+  gap: 1em;
+  border-bottom: 1px solid #a6a6a6;
+}
+
+.avatars .avatar {
+  width: 100px;
+  height: 100px;
+  min-height: 100px;
+  min-width: 100px;
+  border-radius: 50%;
+  cursor: pointer;
+  border: 2px solid #F50063;
+}
+
+.avatar.no-stories {
+  border: 2px solid #C4C4C4;
+}
+
+.stories {
+  display: none;
+}
+
+.stories.active {
+  display: block;
+  height: 100vh;
+  width: 100%;
+  background: #000;
+  position: absolute;
+  z-index: 1;
+  top: 0;
+  left: 0;
+}
+
+.stories .header {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 2;
+  padding: 1em;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-direction: column;
+  gap: .5em;
+}
+
+.stories .header .user-info {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.stories .header .avatar-small {
+  width: 2.5em;
+  height: 2.5em;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.stories .header .username {
+  font-weight: 600;
+  color: #fff;
+  margin-left: .5em;
+}
+
+.stories .header .close {
+  border: none;
+  color: inherit;
+  width: 2em;
+  height: 2em;
+  background: #a6a6a6;
+  border-radius: 50%;
+  opacity: 0.5;
+  cursor: pointer;
+  margin-left: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.story {
+  height: 100vh;
+  width: 100%;
+  background: #000;
+  position: absolute;
+  top: 0;
+  left: 0;
+  opacity: 0;
+  transition: opacity 0.3s;
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.story.active {
+  opacity: 1;
+}
+
+.indicator {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1em;
+  width: 100%;
+}
+
+.indicator .item {
+  width: 100%;
+  height: 10px;
+  border-radius: 1em;
+  background: #a6a6a6;
+  opacity: 0.5;
+  position: relative;
+}
+
+.indicator .item::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 100%;
+  background: #fff;
+  border-radius: 1em;
+}
+
+.indicator .item.active::before {
+  animation: filling 2s linear forwards;
+}
+.indicator .item.played::before {
+  width: 100%;
+}
+
+@keyframes filling {
+  0% {
+    width: 0;
+  }
+  100% {
+    width: 100%;
+  }
+}
