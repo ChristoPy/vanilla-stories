@@ -1,7 +1,7 @@
 import { users } from './state.js'
 
 export default function ({ onAvatarClick }) {
-    users.forEach((user, index) => {
+    users.filter(({ stories }) => stories.length).forEach((user, index) => {
         const element = document.createElement('img')
         element.src = user.avatar
         element.alt = user.name

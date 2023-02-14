@@ -1,4 +1,16 @@
+import {
+    currentStory,
+    hasNextStory,
+    hasPreviousStory,
+    nextStory,
+    previousStory,
+    setAsSeen,
+    users
+} from './state.js'
+
 function next() {
+    nextStory()
+
     const activeIndicator = document.querySelector('.indicator .item.active')
     activeIndicator.classList.add('played')
     activeIndicator.classList.remove('active')
@@ -10,6 +22,8 @@ function next() {
 }
 
 function prev() {
+    previousStory()
+
     const activeIndicator = document.querySelector('.indicator .item.active')
     activeIndicator.classList.remove('active')
     activeIndicator.previousElementSibling.classList.add('active')
@@ -40,9 +54,10 @@ export default function Story(user) {
     toggleStories()
     showUserInfo(user)
 
-    window.buttonClose.addEventListener('click', toggleStories)
+    currentStory.user = user
+    currentStory.story = user.stories[0]
 
-    let current = 0
+    window.buttonClose.addEventListener('click', toggleStories)
 
     user.stories.forEach((story, index) => {
         const indicatorItem = document.createElement('div')
@@ -60,23 +75,24 @@ export default function Story(user) {
         }
     })
     window.content.addEventListener('click', ({ clientX }) => {
-        const { left, width } = target.getBoundingClientRect()
-        if (clientX < left + width / 2 && current !== 0) {
+        const { left, width } = window.content.getBoundingClientRect()
+        if (clientX < left + width / 2 && hasPreviousStory()) {
             prev()
-            current--
         }
-        else if (clientX > left + width / 2 && current !== options.stories.length - 1) {
+        else if (clientX > left + width / 2 && hasNextStory()) {
+            setAsSeen()
             next()
-            current++
         }
     })
     window.indicator.addEventListener('animationend', () => {
-        if (current < user.stories.length - 1) {
+        setAsSeen()
+
+        if (hasNextStory()) {
             next()
-            current++
         } else {
-            current = 0
             toggleStories()
+            console.log('No more stories')
+            console.log(users)
         }
     })
 }
